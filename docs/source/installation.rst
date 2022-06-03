@@ -24,6 +24,37 @@ All platforms
 
    Windows native install is not fully supported in 2.0.  G2P functionality will be unavailable due to Pynini supporting only Linux and MacOS. To use G2P functionality on Windows, please set up the :xref:`wsl` and use the Bash console to continue the instructions.
 
+
+Troubleshooting: activating MFA on a server
+---------------------------------------
+
+If :code:`conda activate aligner` works locally but not on a server (e.g., Roquefort), the following tips may be helpful:
+
+1. Try :code:`conda init bash`
+   
+   a. Log out, and then back in, to the server
+   b. Run :code:`conda create -n aligner -c conda-forge montreal-forced-aligner`
+   c. Try :code:`conda activate aligner`
+
+If (1) doesn’t solve the issue, then continue with (2).
+
+2. Run :code:`source .bashrc` first, and then try :code:`conda activate aligner`
+
+(2) is supposed to work now. If you don't want to run :code:`source .bashrc` every time before activating the aligner, you may continue with (3).
+
+3. Run :code:`cat .bash_profile` to check if there is more than one file named :code:`conda activate`; if yes, then
+4. Run :code:`vi .bash_profile`
+   
+   a. Delete existing (wrong) files using :code:`dG`
+   b. Type :code:`i`, i.e., “insert”
+   c. Type :code:`source .bashrc`
+   d. Hit the escape (ESC) button on the keyboard
+   e. type :code:`:wq` to save the code and quit
+   
+5. Run :code:`exit` and log back in to the server
+6. :code:`conda activate aligner` works now, without the additional step of running :code:`source .bashrc` :)
+
+
 Upgrading from non-conda version
 ================================
 
